@@ -10,13 +10,38 @@ import javax.swing.JFrame;
 import Common.SharedVariables;
 
 public class ExportWindow extends JFrame implements SharedVariables{
-	
+		
 	public ExportWindow(){
 		super(APP_TITLE + ": Export Window");
 	}
 	
 	private void init(){
-		
+		this.setSize(600, 150);
+		this.setResizable(false);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		mainPanel.setLayout(new BorderLayout());
+		if(saveFileButton.getActionListeners().length == 0){			
+			saveFileButton.addActionListener(windowListener);
+		}
+		if(newScrapButton.getActionListeners().length == 0){	
+			newScrapButton.addActionListener(windowListener);
+		}
+		if(helpButton.getActionListeners().length == 0){	
+			helpButton.addActionListener(windowListener);
+		}
+		if(exitButton.getActionListeners().length == 0){	
+			exitButton.addActionListener(windowListener);
+		}
+		buttonPanel.add(saveFileButton);
+		buttonPanel.add(newScrapButton);
+		buttonPanel.add(helpButton);
+		buttonPanel.add(exitButton);
+		greetingLabel.setFont(new Font(greetingLabel.getFont().getFontName(), Font.PLAIN, 20));
+		mainPanel.add(greetingLabel, BorderLayout.NORTH);
+		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+		mainPanel.add(centerPanel, BorderLayout.CENTER);
+		this.add(mainPanel);
 	}
 	
 	public void showWindow(){
@@ -25,6 +50,10 @@ public class ExportWindow extends JFrame implements SharedVariables{
 	}
 	
 	public void hideWindow(){
+		//this.removeAll();
+		mainPanel.removeAll();
+		centerPanel.removeAll();
+		buttonPanel.removeAll();
 		this.setVisible(false);
 	}
 }

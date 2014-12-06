@@ -21,11 +21,10 @@ public class ScrapingProgressWindow extends JFrame implements SharedVariables{
 	}
 	
 	private void init(){
-		this.setSize(600, 150);
+		this.setSize(600, 100);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		scrapingProgressBar.setValue(0);
 		scrapingProgressBar.setLocation(10, 10);
 		scrapingProgressBar.setSize(20, 100);
 		scrapingProgressBar.setStringPainted(true);
@@ -33,19 +32,20 @@ public class ScrapingProgressWindow extends JFrame implements SharedVariables{
 		centerPanel.add(scrapingProgressBar);
 		mainPanel.add(centerPanel, BorderLayout.CENTER);
 		mainPanel.add(l, BorderLayout.NORTH);
-		//myPanel.add(buttonPanel, BorderLayout.SOUTH);
 		this.add(mainPanel);
 	}
 	
 	public void showWindow(){
+		scrapingProgressBar.setValue(0);
 		init();
 		this.setVisible(true);
 	}
 	
 	public void hideWindow(){
+		//this.removeAll();
+		mainPanel.removeAll();
+		centerPanel.removeAll();
+		buttonPanel.removeAll();
 		this.setVisible(false);
-	}
-	public void updateWindow(){
-		init();
 	}
 }

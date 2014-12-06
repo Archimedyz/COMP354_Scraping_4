@@ -1,0 +1,7 @@
+package OperationThreads;
+
+import Common.SharedVariables;
+
+public class ScrapingThread extends Thread implements SharedVariables{
+
+}

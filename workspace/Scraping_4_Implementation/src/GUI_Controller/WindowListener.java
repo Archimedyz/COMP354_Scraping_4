@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFileChooser;
 
 import Common.SharedVariables;
+import OperationThreads.ScrapingThread;
 
 /*
  * This class behaves as a GUI Controller in the sense that 
@@ -32,20 +33,7 @@ public class WindowListener implements ActionListener, SharedVariables {
 			 */
 			mainWindow.hideWindow();
 			scrapingProgressWindow.showWindow();
-			System.out.println("Done Le Scrap.");
-			for(int i = 0 ; i <= 10; ++i){
-				scrapingProgressBar.setValue(i * (scrapingProgressBar.getMaximum()/10));
-				scrapingProgressWindow.updateWindow();
-				System.out.println(i);
-				wasteTime(500);
-			}
-			
-			
-			/*
-			 * Move to save window.
-			 */
-			scrapingProgressWindow.hideWindow();
-			exportWindow.showWindow();
+			new ScrapingThread().start();	
 		} else if (e.getSource() == openFileButton) {
 			System.out.println("Open FIle");
 			int response;
@@ -58,14 +46,16 @@ public class WindowListener implements ActionListener, SharedVariables {
 				// Do nothing when no file was selected.
 				System.out.println("Didn't choose a file . . .");
 			}
-		}
-	}
-	
-	private void wasteTime(long time){
-		long startTime = System.currentTimeMillis();
-		long nowTime = System.currentTimeMillis();
-		while(nowTime - startTime < time){
-			nowTime = System.currentTimeMillis();
+		} else if(e.getSource() == doneScrap){
+			System.out.println("Done Le Scrap.");	
+			// when scraping is done, display the export window.
+			scrapingProgressWindow.hideWindow();
+			exportWindow.showWindow();
+		} else if (e.getSource() == saveFileButton) {
+			// do save file stuff here
+		} else if (e.getSource() == newScrapButton) {
+			exportWindow.hideWindow();
+			mainWindow.showWindow();
 		}
 	}
 }

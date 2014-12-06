@@ -33,12 +33,17 @@ public class MainWindow extends JFrame implements SharedVariables{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		mainPanel.setLayout(new BorderLayout());
-		if(!actionsSet){			
+		if(openFileButton.getActionListeners().length == 0){			
 			openFileButton.addActionListener(windowListener);
+		}
+		if(scrapingButton.getActionListeners().length == 0){	
 			scrapingButton.addActionListener(windowListener);
+		}
+		if(helpButton.getActionListeners().length == 0){	
 			helpButton.addActionListener(windowListener);
+		}
+		if(exitButton.getActionListeners().length == 0){	
 			exitButton.addActionListener(windowListener);
-			actionsSet = true;
 		}
 		buttonPanel.add(openFileButton);
 		buttonPanel.add(scrapingButton);
@@ -51,6 +56,7 @@ public class MainWindow extends JFrame implements SharedVariables{
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 		mainPanel.add(centerPanel, BorderLayout.CENTER);
 		this.add(mainPanel);
+		System.out.println("MAIN");
 	}
 	
 	public void showWindow(){
@@ -59,15 +65,11 @@ public class MainWindow extends JFrame implements SharedVariables{
 	}
 	
 	public void hideWindow(){
-		this.removeAll();
+	//	this.removeAll();
 		mainPanel.removeAll();
 		centerPanel.removeAll();
 		buttonPanel.removeAll();
-		//this.setVisible(false);
-	}
-
-	public void updateWindow(){
-		init();
+		this.setVisible(false);
 	}
 	public static void main(String[] args) {
 		mainWindow.showWindow();
