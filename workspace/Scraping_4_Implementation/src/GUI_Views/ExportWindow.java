@@ -41,6 +41,7 @@ public class ExportWindow extends JFrame implements SharedVariables{
 		mainPanel.add(greetingLabel, BorderLayout.NORTH);
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 		mainPanel.add(centerPanel, BorderLayout.CENTER);
+		
 		this.add(mainPanel);
 	}
 	
