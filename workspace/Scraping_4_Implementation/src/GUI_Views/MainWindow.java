@@ -56,7 +56,7 @@ public class MainWindow extends JFrame implements SharedVariables{
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 		mainPanel.add(centerPanel, BorderLayout.CENTER);
 		this.add(mainPanel);
-		System.out.println("MAIN");
+		//System.out.println("MAIN");
 	}
 	
 	public void showWindow(){

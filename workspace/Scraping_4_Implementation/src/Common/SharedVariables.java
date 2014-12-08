@@ -15,7 +15,6 @@ import OperationThreads.ScrapingThread;
 
 public interface SharedVariables {
 
-	
 	final String APP_TITLE = "Scraping Group 4";
 	final String FILE_PATH_STRING = "CSV File Path:";
 	final String GREETING_STRING = "Welcome to the Scraping Tool";

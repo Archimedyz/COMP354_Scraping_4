@@ -47,7 +47,7 @@ public class WindowListener implements ActionListener, SharedVariables {
 				System.out.println("Didn't choose a file . . .");
 			}
 		} else if(e.getSource() == doneScrap){
-			System.out.println("Done Le Scrap.");	
+			System.out.println("Done Le Scrape.");	
 			// when scraping is done, display the export window.
 			scrapingProgressWindow.hideWindow();
 			exportWindow.showWindow();
