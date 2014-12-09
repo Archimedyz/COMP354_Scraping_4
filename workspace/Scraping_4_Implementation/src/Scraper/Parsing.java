@@ -1,9 +1,12 @@
 package Scraper;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Parsing 
+import Common.SharedVariables;
+
+public class Parsing implements SharedVariables
 {
     /*
 	<xml.XMLData>
@@ -38,7 +41,7 @@ public class Parsing
 	String App_numOfInstalls="";  //ok
 	String App_currentVersion=""; //ok
     String App_size=""; //ok
-    String[] App_similar=new String[3];  //ok
+    ArrayList<String> App_similar = new ArrayList<String>();  //ok
     
     public void parse(String file)
 	{
@@ -59,7 +62,7 @@ public class Parsing
 		    App_numOfInstalls=filter("<div class=\"content\" itemprop=\"numDownloads\">");
 		    App_currentVersion=filter("<div class=\"content\" itemprop=\"softwareVersion\">");
 		    App_size=filter("<div class=\"content\" itemprop=\"fileSize\">");
-		    App_similar=app_similar("<img class=\"cover-image\" alt=");
+		    App_similar = app_similar("<img class=\"cover-image\" alt=");
 			
 			System.out.println("App_name: "+App_name);
 			System.out.println("App_company: "+App_company);
@@ -70,9 +73,24 @@ public class Parsing
 			System.out.println("App_numOfInstalls: "+App_numOfInstalls);
 			System.out.println("App_currentVersion: "+App_currentVersion);	
 		    System.out.println("App_size: "+App_size);	
-		    System.out.println("App_similar1: "+App_similar[0]);
-		    System.out.println("App_similar2: "+App_similar[1]);
-		    System.out.println("App_similar3: "+App_similar[2]);
+		    System.out.println("App_similar1: "+App_similar.get(0));
+		    System.out.println("App_similar2: "+App_similar.get(1));
+		    System.out.println("App_similar3: "+App_similar.get(2));
+		
+		    dataMap.put(AppDataType.NAME, App_name);
+		    dataMap.put(AppDataType.COMPANY, App_company);
+		    dataMap.put(AppDataType.RATING, App_rating);
+		    dataMap.put(AppDataType.NUMBER_OF_RATERS, App_numOfPeopleRated);
+		    dataMap.put(AppDataType.CATEGORY, App_category);
+		    dataMap.put(AppDataType.DATE_LAST_UPDATED, App_dateLastUpdated);
+		    dataMap.put(AppDataType.DESCRIPTION, App_description);
+		    dataMap.put(AppDataType.INSTALLS, App_numOfInstalls);
+		    dataMap.put(AppDataType.CURRENT_VERSION, App_currentVersion);
+		    dataMap.put(AppDataType.SIZE, App_size);
+		    dataMap.put(AppDataType.SIMILARAPP1, App_similar.get(0));
+		    dataMap.put(AppDataType.SIMILARAPP2, App_similar.get(1));
+		    dataMap.put(AppDataType.SIMILARAPP3, App_similar.get(2));
+		    
 		}
 		catch (Exception e)
 		{ 
@@ -89,20 +107,20 @@ public class Parsing
 		return m;
 	}
 	
-	public String[] app_similar(String pattern)
+	public ArrayList<String> app_similar(String pattern)
 	{
-		String[] m=new String[3];
+		ArrayList<String> m = new ArrayList<String>();
 		int index=data.indexOf(pattern);
 		String substring=data.substring(index, index+1000);
-		m[0]=substring.split("alt=\"")[1].split("\"")[0];
+		m.add(substring.split("alt=\"")[1].split("\"")[0]);
 		
 		index=data.indexOf(pattern, index+20);
 		substring=data.substring(index, index+1000);
-		m[1]=substring.split("alt=\"")[1].split("\"")[0];
+		m.add(substring.split("alt=\"")[1].split("\"")[0]);
 		
 		index=data.indexOf(pattern, index+20);
 		substring=data.substring(index, index+1000);
-		m[2]=substring.split("alt=\"")[1].split("\"")[0];
+		m.add(substring.split("alt=\"")[1].split("\"")[0]);
 		
 		return m;
 	}

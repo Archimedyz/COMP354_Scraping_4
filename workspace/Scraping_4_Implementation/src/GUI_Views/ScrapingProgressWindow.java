@@ -12,9 +12,6 @@ import javax.swing.JPanel;
 import Common.SharedVariables;
 
 public class ScrapingProgressWindow extends JFrame implements SharedVariables{
-
-	JPanel myPanel = new JPanel();
-	JLabel l = new JLabel("Progress");
 	
 	public ScrapingProgressWindow(){
 		super(APP_TITLE + ": Scraping Progress Window");
@@ -30,8 +27,10 @@ public class ScrapingProgressWindow extends JFrame implements SharedVariables{
 		scrapingProgressBar.setStringPainted(true);
 		mainPanel.setLayout(new BorderLayout());
 		centerPanel.add(scrapingProgressBar);
+		windowLabel.setFont(new Font(windowLabel.getFont().getFontName(), Font.PLAIN, 20));
+		windowLabel.setText(PROGRESS_STRING);
+		mainPanel.add(windowLabel, BorderLayout.NORTH);
 		mainPanel.add(centerPanel, BorderLayout.CENTER);
-		mainPanel.add(l, BorderLayout.NORTH);
 		this.add(mainPanel);
 	}
 	

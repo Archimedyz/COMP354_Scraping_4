@@ -1,0 +1,39 @@
+package OperationThreads;
+
+import java.awt.event.ActionEvent;
+import Common.SharedVariables;
+import Scraper.*;
+
+public class ScrapingThread extends Thread implements SharedVariables{
+	public ScrapingThread(){
+		doneScrap.addActionListener(windowListener);
+	}
+	
+	@Override
+	public void run()
+	{
+		for(int i = 0 ; i <= 10; ++i)
+		{
+			scrapingProgressBar.setValue(i * (scrapingProgressBar.getMaximum()/10));
+			//scrapingProgressWindow.updateWindow();
+			
+			Scraping a=new Scraping();
+		    a.Scrape("https://play.google.com/store/apps/details?id=com.rovio.angrybirds"); // Where do scraping urls come from  ?
+					
+			System.out.println(i + 1);
+			wasteTime(50);
+		}
+		doneScrap.doClick();
+	}
+	
+	private void wasteTime(long time)
+	{
+		long startTime = System.currentTimeMillis();
+		long nowTime = System.currentTimeMillis();
+		
+		while(nowTime - startTime < time)
+		{
+			nowTime = System.currentTimeMillis();
+		}
+	}
+}

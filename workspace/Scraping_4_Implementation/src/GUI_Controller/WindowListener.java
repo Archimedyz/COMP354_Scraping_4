@@ -3,9 +3,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFileChooser;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import Common.SharedVariables;
 import OperationThreads.ScrapingThread;
+import Scraper.Parsing;
 
 /*
  * This class behaves as a GUI Controller in the sense that 
@@ -20,14 +23,14 @@ import OperationThreads.ScrapingThread;
  *  - Awais Ali
  */
 
-public class WindowListener implements ActionListener, SharedVariables {
+public class WindowListener implements ActionListener, ChangeListener, SharedVariables {
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == exitButton) {
 			System.exit(0);
 		} else if (e.getSource() == helpButton) {
 			System.out.println("Help");
 		} else if (e.getSource() == scrapingButton) {
-			System.out.println("Scraping start");
 			/*
 			 * Scraping should start here. show a "loading" window whilst scraping.
 			 */
@@ -52,10 +55,42 @@ public class WindowListener implements ActionListener, SharedVariables {
 			scrapingProgressWindow.hideWindow();
 			exportWindow.showWindow();
 		} else if (e.getSource() == saveFileButton) {
-			// do save file stuff here
+			int response;
+			response = fileOpener.showSaveDialog(mainPanel);
+			if (response == JFileChooser.APPROVE_OPTION) {
+				// This is the filename.
+				saveFileName.setText(fileOpener.getSelectedFile().getName());
+				// This is the path for saving the file including the fileName.
+				saveFilePath.setText(fileOpener.getSelectedFile().getPath());
+				// this is the real save path.
+				String savePath = saveFilePath.getText();
+				if(xmlFormat.isSelected()){
+					savePath += ".xml";
+				} else if(rdfFormat.isSelected()){
+					savePath += ".rdf";
+				} else{
+					return;
+				}
+				System.out.println("HERE ME!");
+				Parsing b=new Parsing();
+			    b.parse(savePath);
+			} else {
+				System.out.println("Didn't choose a file . . .");
+			}
 		} else if (e.getSource() == newScrapButton) {
 			exportWindow.hideWindow();
 			mainWindow.showWindow();
+		}
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		if(e.getSource() == xmlFormat && xmlFormat.isSelected()){	
+			System.out.println("XML");
+			rdfFormat.setSelected(false);
+		} else if(e.getSource() == rdfFormat && rdfFormat.isSelected()){
+			System.out.println("RDF");
+			xmlFormat.setSelected(false);
 		}
 	}
 }

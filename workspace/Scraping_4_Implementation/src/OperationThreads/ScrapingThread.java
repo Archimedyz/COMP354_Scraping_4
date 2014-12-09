@@ -19,12 +19,9 @@ public class ScrapingThread extends Thread implements SharedVariables{
 			
 			Scraping a=new Scraping();
 		    a.Scrape("https://play.google.com/store/apps/details?id=com.rovio.angrybirds"); // Where do scraping urls come from  ?
-			
-		    Parsing b=new Parsing();
-		    b.parse(a.fileName);
-			
+					
 			System.out.println(i + 1);
-			wasteTime(50);
+			//wasteTime(50);
 		}
 		doneScrap.doClick();
 	}

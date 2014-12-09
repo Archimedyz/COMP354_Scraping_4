@@ -51,8 +51,9 @@ public class MainWindow extends JFrame implements SharedVariables{
 		buttonPanel.add(exitButton);
 		centerPanel.add(filePathLabel);
 		centerPanel.add(filePathField);
-		greetingLabel.setFont(new Font(greetingLabel.getFont().getFontName(), Font.PLAIN, 20));
-		mainPanel.add(greetingLabel, BorderLayout.NORTH);
+		windowLabel.setFont(new Font(windowLabel.getFont().getFontName(), Font.PLAIN, 20));
+		windowLabel.setText(GREETING_STRING);
+		mainPanel.add(windowLabel, BorderLayout.NORTH);
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 		mainPanel.add(centerPanel, BorderLayout.CENTER);
 		this.add(mainPanel);
