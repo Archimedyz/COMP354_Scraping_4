@@ -1,6 +1,7 @@
 package Common;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -40,6 +41,7 @@ public interface SharedVariables {
 	final String PROGRESS_STRING = "Scraping In Progress";
 	final String EXPORT_STRING = "Export Data";
 
+	ArrayList<String> urls = new ArrayList<String>();
 	Map<AppDataType, String> dataMap = new HashMap<AppDataType, String>();
 	
 	JButton scrapingButton = new JButton("Start Scraping");

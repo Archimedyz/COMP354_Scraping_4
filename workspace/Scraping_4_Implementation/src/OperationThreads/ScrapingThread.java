@@ -1,6 +1,7 @@
 package OperationThreads;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import Common.SharedVariables;
 import Scraper.*;
 
@@ -12,20 +13,20 @@ public class ScrapingThread extends Thread implements SharedVariables{
 	@Override
 	public void run()
 	{
-		for(int i = 0 ; i <= 10; ++i)
+		Scraper scraper = new Scraper();
+		ArrayList<String> urls = scraper.GetURLs();
+		int increment = 100 / urls.size();
+		int progress = 0;
+		
+		for (int i = 0; i < urls.size(); i++)
 		{
-			scrapingProgressBar.setValue(i * (scrapingProgressBar.getMaximum()/10));
-			//scrapingProgressWindow.updateWindow();
+			scraper.Scrape(urls.get(i));
 			
-			Scraping a=new Scraping();
-		    a.Scrape("https://play.google.com/store/apps/details?id=com.rovio.angrybirds"); // Where do scraping urls come from  ?
+			progress += increment;
 			
-		    Parsing b=new Parsing();
-		    b.parse(a.fileName);
-			
-			System.out.println(i + 1);
-			//wasteTime(50);
+			scrapingProgressBar.setValue(progress);
 		}
+	
 		doneScrap.doClick();
 	}
 	
