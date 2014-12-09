@@ -1,15 +1,11 @@
 package GUI_Views;
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import static Common.SharedVariables.windowListener;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Font;
+
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import Common.SharedVariables;
 
@@ -33,6 +29,7 @@ public class MainWindow extends JFrame implements SharedVariables{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		mainPanel.setLayout(new BorderLayout());
+		centerPanel.setLayout(new FlowLayout());
 		if(openFileButton.getActionListeners().length == 0){			
 			openFileButton.addActionListener(windowListener);
 		}
