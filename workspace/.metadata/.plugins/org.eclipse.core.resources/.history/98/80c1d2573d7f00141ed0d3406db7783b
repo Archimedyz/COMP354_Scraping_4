@@ -72,6 +72,8 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 					return;
 				}
 				System.out.println("HERE ME!");
+				Parsing b=new Parsing();
+			    b.parse(savePath);
 			} else {
 				System.out.println("Didn't choose a file . . .");
 			}
