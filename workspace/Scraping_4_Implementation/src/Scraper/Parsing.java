@@ -90,7 +90,7 @@ public class Parsing implements SharedVariables
 		    dataMap.put(AppDataType.SIMILARAPP1, App_similar.get(0));
 		    dataMap.put(AppDataType.SIMILARAPP2, App_similar.get(1));
 		    dataMap.put(AppDataType.SIMILARAPP3, App_similar.get(2));
-		    
+		   
 		}
 		catch (Exception e)
 		{ 
