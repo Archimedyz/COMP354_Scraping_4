@@ -57,11 +57,11 @@ public class ClassConverter implements SharedVariables
 		}
 	}
 	
-	public static void exportXML(String xmlFileName) 
+	public static void exportXML(String xmlFileNameWithoutExtension) 
 	{
 		FileWriter encode = null;
 		try {
-			encode = new FileWriter(xmlFileName);
+			encode = new FileWriter(xmlFileNameWithoutExtension + ".xml");
 			XStream xstream = new XStream();
 			String xml;
 			 
