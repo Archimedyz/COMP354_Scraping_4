@@ -113,8 +113,6 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 		else if (e.getSource() == newScrapButton) 
 		{
 			exportWindow.hideWindow();
-			exportData.clear();
-			filePathField.setText("");
 			mainWindow.showWindow();
 		}
 	}

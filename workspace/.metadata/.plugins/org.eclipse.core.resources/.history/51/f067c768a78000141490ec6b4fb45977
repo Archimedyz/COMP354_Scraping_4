@@ -114,7 +114,6 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 		{
 			exportWindow.hideWindow();
 			exportData.clear();
-			filePathField.setText("");
 			mainWindow.showWindow();
 		}
 	}
