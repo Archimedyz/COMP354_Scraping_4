@@ -9,12 +9,13 @@ import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import export.ExportData;
+import Export.ExportData;
 import GUI_Controller.WindowListener;
 import GUI_Views.ExportWindow;
 import GUI_Views.HelpWindow;
 import GUI_Views.MainWindow;
 import GUI_Views.ScrapingProgressWindow;
+import Scraper.ScrapingEntry;
 
 public interface SharedVariables {
 
@@ -25,7 +26,8 @@ public interface SharedVariables {
 	final String EXPORT_STRING = "Export Data";
 
 	ArrayList<String> urls = new ArrayList<String>();
-	ExportData xmlData = new ExportData();
+	ArrayList<ScrapingEntry> scrapedEntries = new ArrayList<ScrapingEntry>();
+	ExportData exporter = new ExportData();
 	
 	JButton scrapingButton = new JButton("Start Scraping");
 	JButton newScrapButton = new JButton("   New Scrap  ");

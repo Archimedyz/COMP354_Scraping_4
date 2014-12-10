@@ -74,20 +74,23 @@ public class Scraper implements SharedVariables
 		    System.out.println("App_similar2: "+App_similar.get(1));
 		    System.out.println("App_similar3: "+App_similar.get(2));
 		    
-		    xmlData.name = App_name;
-			xmlData.offeredBy = App_company;
-			xmlData.contentRating = "NA";
-			xmlData.rating = Float.parseFloat(App_rating);
-			xmlData.numOfPeopleRated = App_numOfPeopleRated;
-			xmlData.numOfGoogleUpvotes = 0;
-			xmlData.category = App_category;
-			xmlData.dateLastUpdated = App_dateLastUpdated;
-			xmlData.description = "Too long for some reason";
-			xmlData.numOfInstalls = App_numOfInstalls;
-			xmlData.currentVersion = App_currentVersion;
-			xmlData.size = App_size;
-			xmlData.similarApps = App_similar;
-		   
+		    ScrapingEntry ent = new ScrapingEntry();
+		    
+		    ent.name = App_name;
+			ent.offeredBy = App_company;
+			ent.contentRating = "N/A";
+			ent.rating = Float.parseFloat(App_rating);
+			ent.numOfPeopleRated = App_numOfPeopleRated;
+			ent.numOfGoogleUpvotes = 0;
+			ent.category = App_category;
+			ent.dateLastUpdated = App_dateLastUpdated;
+			ent.description = "Too long for some reason";
+			ent.numOfInstalls = App_numOfInstalls;
+			ent.currentVersion = App_currentVersion;
+			ent.size = App_size;
+			ent.similarApps = App_similar;
+			
+			scrapedEntries.add(ent);
 		}
 		catch (Exception e)
 		{ 
@@ -109,6 +112,7 @@ public class Scraper implements SharedVariables
             
             while ((inputLine = in.readLine()) != null)
             {
+            	
             	scrapingData += inputLine;
             }
             

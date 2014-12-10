@@ -1,31 +1,55 @@
-package export;
+package Export;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import Common.SharedVariables;
+import Scraper.ScrapingEntry;
 
-public class ExportData {
-	public String name;
-	public String offeredBy;
-	public String contentRating;
-	public float rating;
-	public String numOfPeopleRated;
-	public int numOfGoogleUpvotes;
-	public String category;
-	public String dateLastUpdated;
-	public String description;
-	public String numOfInstalls;
-	public String currentVersion;
-	public String size;
-	public ArrayList<String> similarApps;
-
-	@Override public String toString() {
-		String s = name + " " + offeredBy  + " " + contentRating  + " " + rating  + " " + numOfPeopleRated + " " + 
-				this.numOfGoogleUpvotes + " " + category  + " " + this.dateLastUpdated + " " + description  + " " + this.numOfInstalls  + " " + this.currentVersion  + " " + size;
+public class ExportData implements SharedVariables 
+{
+	public void exportXML(String path)
+	{
 		
-		for (int i = 0; i < similarApps.size(); ++i) {
-			s += " " + similarApps.get(i);
+	}
+	
+	public void exportRDF(String path)
+	{
+		String rdf = "<?xml version=\"1.0\"?>\n<RDF>\n";
+		
+		for (int i = 0; i < scrapedEntries.size(); i++)
+		{
+			ScrapingEntry ent = scrapedEntries.get(i);
+			
+			rdf += ("<Description about=\"" + ent.name + "\">\n");
+			rdf += ("<name>" + ent.name + "</name>\n");
+			rdf += ("<author>" + ent.offeredBy + "</author>\n");
+			rdf += ("<rating>" + ent.contentRating + "</rating>\n");
+			rdf += ("<ratings>" + ent.numOfPeopleRated + "</ratings>\n");
+			rdf += ("<upvotes>" + ent.numOfGoogleUpvotes + "</upvotes>\n");
+			rdf += ("<category>" + ent.category + "</category>\n");
+			rdf += ("<date>" + ent.dateLastUpdated + "</date>\n");
+			rdf += ("<description>" + ent.description + "</description>\n");
+			rdf += ("<installs>" + ent.numOfInstalls + "</installs>\n");
+			rdf += ("<version>" + ent.currentVersion + "</version>\n");
+			rdf += ("<size>" + ent.size + "</size>\n");
+			rdf += ("<similar1>" + ent.similarApps.get(0) + "</similar1>\n");
+			rdf += ("<similar2>" + ent.similarApps.get(1) + "</similar2>\n");
+			rdf += ("<similar3>" + ent.similarApps.get(2) + "</similar3>\n");
+			rdf += "</Description>\n";
 		}
 		
-		return s;
+		rdf += "</RDF>";
+		
+		try
+		{
+			PrintWriter out = new PrintWriter(path);
+			out.write(rdf);
+			out.close();
+		}
+		catch (Exception e)
+		{
+			System.out.println("Error: Could not export data as rdf.");
+		}
 	}
 	
 }

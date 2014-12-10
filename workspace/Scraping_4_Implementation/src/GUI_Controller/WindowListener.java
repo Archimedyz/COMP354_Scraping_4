@@ -9,7 +9,9 @@ import javax.swing.JFileChooser;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+
 import Common.SharedVariables;
+import Export.ExportData;
 import OperationThreads.ScrapingThread;
 import Scraper.Scraper;
 
@@ -39,7 +41,7 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 		} 
 		else if (e.getSource() == helpButton) // Help button was pressed
 		{
-			System.out.println("Help");
+			System.out.println("Help button.");
 		} 
 		else if (e.getSource() == scrapingButton) // Scraping button was pressed
 		{
@@ -68,14 +70,14 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 				System.out.println("Didn't choose a valid file.");
 			}
 		} 
-		else if(e.getSource() == doneScrap)
+		else if(e.getSource() == doneScrap) // Scraping complete
 		{
 			System.out.println("Done scraping.");	
 			// when scraping is done, display the export window.
 			scrapingProgressWindow.hideWindow();
 			exportWindow.showWindow();
 		} 
-		else if (e.getSource() == saveFileButton) 
+		else if (e.getSource() == saveFileButton) // Save file button pressed
 		{
 			int response;
 			response = fileOpener.showSaveDialog(mainPanel);
@@ -84,22 +86,37 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 			{
 				// This is the filename.
 				saveFileName.setText(fileOpener.getSelectedFile().getName());
+				
 				// This is the path for saving the file including the fileName.
 				saveFilePath.setText(fileOpener.getSelectedFile().getPath());
+				
 				// this is the real save path.
 				String savePath = saveFilePath.getText();
-				if(xmlFormat.isSelected()){
+				
+				ExportData exporter = new ExportData();
+				
+				if(xmlFormat.isSelected())
+				{
 					savePath += ".xml";
-				} else if(rdfFormat.isSelected()){
+					
+					exporter.exportXML(savePath);
+				} 
+				else if(rdfFormat.isSelected())
+				{
 					savePath += ".rdf";
-				} else{
-					return;
+					
+					exporter.exportRDF(savePath);
+				} 
+				else 
+				{
+					return; //should we have a plaintext option?
 				}
-				System.out.println("HERE ME!");
+				
+				System.out.println("Saved file!");
 			} 
 			else 
 			{
-				System.out.println("Didn't choose a file . . .");
+				System.out.println("Didn't choose a file.");
 			}
 		} 
 		else if (e.getSource() == newScrapButton) 
@@ -110,12 +127,14 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 	}
 
 	@Override
-	public void stateChanged(ChangeEvent e) {
-		if(e.getSource() == xmlFormat && xmlFormat.isSelected()){	
-			System.out.println("XML");
+	public void stateChanged(ChangeEvent e) 
+	{	
+		if(e.getSource() == xmlFormat && xmlFormat.isSelected())
+		{	
 			rdfFormat.setSelected(false);
-		} else if(e.getSource() == rdfFormat && rdfFormat.isSelected()){
-			System.out.println("RDF");
+		} 
+		else if(e.getSource() == rdfFormat && rdfFormat.isSelected())
+		{
 			xmlFormat.setSelected(false);
 		}
 	}

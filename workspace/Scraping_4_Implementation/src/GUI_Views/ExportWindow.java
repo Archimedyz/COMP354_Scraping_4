@@ -38,7 +38,7 @@ public class ExportWindow extends JFrame implements SharedVariables{
 		}
 		if(xmlFormat.getChangeListeners().length == 1){
 			xmlFormat.addChangeListener(windowListener);
-			System.out.println("CHECK ME");
+			//System.out.println("CHECK ME");
 		}
 		if(rdfFormat.getChangeListeners().length == 1){
 			rdfFormat.addChangeListener(windowListener);
