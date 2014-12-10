@@ -126,7 +126,7 @@ public class Scraper implements SharedVariables
             
             System.out.println("Scraping finished on '" + url + "'."); 
 		} 
-		catch(Exception e)
+		catch (Exception e)
 		{ 	
 			e.printStackTrace();
 		}
@@ -134,23 +134,34 @@ public class Scraper implements SharedVariables
 	
 	public ArrayList<String> GetURLs(String csvFilePath)
 	{
-		if(csvFilePath == null){
+		if (csvFilePath == null)
+		{
 			csvFilePath = "res/sample.csv";
 		}
+		
 		File csvFile = new File(csvFilePath);
 		Scanner reader;
-		try {
+		
+		try 
+		{
 			reader = new Scanner(csvFile);
-		} catch (FileNotFoundException e) {
+			reader.nextLine();
+			
+			while(reader.hasNextLine())
+			{
+				String line = reader.nextLine();
+				System.out.println(line.split(";")[0]);
+				urls.add(line.substring(1).split(";")[0]);
+			}
+			
+			reader.close();
+		} 
+		catch (FileNotFoundException e) 
+		{
 			e.printStackTrace();
 			return null;
 		}
-		reader.nextLine();
-		while(reader.hasNextLine()){
-			String line = reader.nextLine();
-			System.out.println(line.split(";")[0]);
-			urls.add(line.substring(1).split(";")[0]);
-		}
+		
 		return urls;
 	}
 	

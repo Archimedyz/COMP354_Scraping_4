@@ -1,6 +1,9 @@
 package GUI_Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 import javax.swing.event.ChangeEvent;
@@ -23,41 +26,62 @@ import Scraper.Scraper;
  *  - Awais Ali
  */
 
-public class WindowListener implements ActionListener, ChangeListener, SharedVariables {
+public class WindowListener implements ActionListener, ChangeListener, SharedVariables 
+{
+	String filePath = "";
+	
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == exitButton) {
+	public void actionPerformed(ActionEvent e) 
+	{
+		if (e.getSource() == exitButton) // Exit button was pressed
+		{
 			System.exit(0);
-		} else if (e.getSource() == helpButton) {
+		} 
+		else if (e.getSource() == helpButton) // Help button was pressed
+		{
 			System.out.println("Help");
-		} else if (e.getSource() == scrapingButton) {
-			/*
-			 * Scraping should start here. show a "loading" window whilst scraping.
-			 */
+		} 
+		else if (e.getSource() == scrapingButton) // Scraping button was pressed
+		{
 			mainWindow.hideWindow();
 			scrapingProgressWindow.showWindow();
-			new ScrapingThread(null).start();	
-		} else if (e.getSource() == openFileButton) {
-			System.out.println("Open FIle");
+			
+			ScrapingThread thread = new ScrapingThread(filePath);
+			thread.start();
+		} 
+		else if (e.getSource() == openFileButton) // Open file button was pressed
+		{
+			System.out.println("Open file button clicked.");
 			int response;
 			response = fileOpener.showOpenDialog(mainPanel);
-			if (response == JFileChooser.APPROVE_OPTION) {
-				filePathField.setText(fileOpener.getSelectedFile().getPath());
+			
+			if (response == JFileChooser.APPROVE_OPTION) 
+			{
+				filePath = fileOpener.getSelectedFile().getPath();
+				filePathField.setText(filePath);
 				// Don't do anything here, it is only to set the path string for scraping.
-				// Scrapping should only begin when the a scraping button is pressed.
-			} else {
+				// Scraping should only begin when the a scraping button is pressed.
+			} 
+			else 
+			{
 				// Do nothing when no file was selected.
-				System.out.println("Didn't choose a file . . .");
+				System.out.println("Didn't choose a valid file.");
 			}
-		} else if(e.getSource() == doneScrap){
-			System.out.println("Done Le Scrape.");	
+		} 
+		else if(e.getSource() == doneScrap)
+		{
+			System.out.println("Done scraping.");	
 			// when scraping is done, display the export window.
 			scrapingProgressWindow.hideWindow();
 			exportWindow.showWindow();
-		} else if (e.getSource() == saveFileButton) {
+		} 
+		else if (e.getSource() == saveFileButton) 
+		{
 			int response;
 			response = fileOpener.showSaveDialog(mainPanel);
-			if (response == JFileChooser.APPROVE_OPTION) {
+			
+			if (response == JFileChooser.APPROVE_OPTION) 
+			{
 				// This is the filename.
 				saveFileName.setText(fileOpener.getSelectedFile().getName());
 				// This is the path for saving the file including the fileName.
@@ -72,10 +96,14 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 					return;
 				}
 				System.out.println("HERE ME!");
-			} else {
+			} 
+			else 
+			{
 				System.out.println("Didn't choose a file . . .");
 			}
-		} else if (e.getSource() == newScrapButton) {
+		} 
+		else if (e.getSource() == newScrapButton) 
+		{
 			exportWindow.hideWindow();
 			mainWindow.showWindow();
 		}
