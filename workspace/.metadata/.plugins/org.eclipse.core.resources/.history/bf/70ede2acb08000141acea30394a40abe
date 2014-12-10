@@ -1,0 +1,147 @@
+package GUI_Controller;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFileChooser;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+<<<<<<< HEAD
+
+=======
+import export.ClassConverter;
+>>>>>>> origin/master
+import Common.SharedVariables;
+import Export.ExportData;
+import OperationThreads.ScrapingThread;
+
+/*
+ * This class behaves as a GUI Controller in the sense that 
+ * it will receive all input from the user (button clicks) and
+ * send them to the appropriate sub routine in the Model Classes.
+ * I've left some spaces empty (Not my responsibility).
+ *  I also don't know what exactly you will be doing but I 
+ *  have left some comments in various sections to indicate what
+ *  ought to go where.
+ *  
+ *  Enjoy
+ *  - Awais Ali
+ */
+
+public class WindowListener implements ActionListener, ChangeListener, SharedVariables 
+{
+	String filePath = null;
+	
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		if (e.getSource() == exitButton) // Exit button was pressed
+		{
+			System.exit(0);
+		} 
+		else if (e.getSource() == helpButton) // Help button was pressed
+		{
+			System.out.println("Help button.");
+		} 
+		else if (e.getSource() == scrapingButton) // Scraping button was pressed
+		{
+			filePath = filePathField.getText();
+			
+			if(filePath.endsWith(".csv")){
+				
+			mainWindow.hideWindow();
+			scrapingProgressWindow.showWindow();
+			
+			ScrapingThread thread = new ScrapingThread(filePath);
+			thread.start();
+			} else {
+				errorMessage.setText("Invalid File Type. Must be a '.csv' File.");
+			}
+		} 
+		else if (e.getSource() == openFileButton) // Open file button was pressed
+		{
+			System.out.println("Open file button clicked.");
+			int response;
+			response = fileOpener.showOpenDialog(mainPanel);
+			
+			if (response == JFileChooser.APPROVE_OPTION) 
+			{
+				filePath = fileOpener.getSelectedFile().getPath();
+				filePathField.setText(filePath);
+				// Don't do anything here, it is only to set the path string for scraping.
+				// Scraping should only begin when the a scraping button is pressed.
+			} 
+			else 
+			{
+				// Do nothing when no file was selected.
+				System.out.println("Didn't choose a valid file.");
+			}
+		} 
+		else if(e.getSource() == doneScrap) // Scraping complete
+		{
+			System.out.println("Done scraping.");	
+			// when scraping is done, display the export window.
+			scrapingProgressWindow.hideWindow();
+			exportWindow.showWindow();
+		} 
+		else if (e.getSource() == saveFileButton) // Save file button pressed
+		{
+			int response;
+			response = fileOpener.showSaveDialog(mainPanel);
+			
+			if (response == JFileChooser.APPROVE_OPTION) 
+			{		
+				// this is the real save path.
+				String savePath = fileOpener.getSelectedFile().getPath();
+				
+				ExportData exporter = new ExportData();
+				
+				if(xmlFormat.isSelected())
+				{
+					if(!savePath.endsWith(".xml")){
+						savePath += ".xml";
+					}
+					exporter.exportXML(savePath);
+				} 
+				else if(rdfFormat.isSelected())
+				{
+					if(!savePath.endsWith(".rdf")){
+						savePath += ".rdf";
+					}
+					
+					exporter.exportRDF(savePath);
+				} 
+				else 
+				{
+					return; //should we have a plaintext option?
+				}
+				
+				System.out.println("Saved file!");
+			} 
+			else 
+			{
+				System.out.println("Didn't choose a file.");
+			}
+		} 
+		else if (e.getSource() == newScrapButton) 
+		{
+			exportWindow.hideWindow();
+			exportData.clear();
+			filePathField.setText("");
+			mainWindow.showWindow();
+		}
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) 
+	{	
+		if(e.getSource() == xmlFormat && xmlFormat.isSelected())
+		{	
+			rdfFormat.setSelected(false);
+		} 
+		else if(e.getSource() == rdfFormat && rdfFormat.isSelected())
+		{
+			xmlFormat.setSelected(false);
+		}
+	}
+}

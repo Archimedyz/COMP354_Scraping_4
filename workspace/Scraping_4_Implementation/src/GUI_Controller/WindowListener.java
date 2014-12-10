@@ -5,12 +5,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JFileChooser;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-<<<<<<< HEAD
-
-=======
-import export.ClassConverter;
->>>>>>> origin/master
 import Common.SharedVariables;
 import Export.ExportData;
 import OperationThreads.ScrapingThread;
@@ -90,28 +84,24 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 			response = fileOpener.showSaveDialog(mainPanel);
 			
 			if (response == JFileChooser.APPROVE_OPTION) 
-			{
-				// This is the filename.
-<<<<<<< HEAD
-				saveFileName.setText(fileOpener.getSelectedFile().getName());
-				
-				// This is the path for saving the file including the fileName.
-				saveFilePath.setText(fileOpener.getSelectedFile().getPath());
-				
+			{		
 				// this is the real save path.
-				String savePath = saveFilePath.getText();
+				String savePath = fileOpener.getSelectedFile().getPath();
 				
 				ExportData exporter = new ExportData();
 				
 				if(xmlFormat.isSelected())
 				{
-					savePath += ".xml";
-					
+					if(!savePath.endsWith(".xml")){
+						savePath += ".xml";
+					}
 					exporter.exportXML(savePath);
 				} 
 				else if(rdfFormat.isSelected())
 				{
-					savePath += ".rdf";
+					if(!savePath.endsWith(".rdf")){
+						savePath += ".rdf";
+					}
 					
 					exporter.exportRDF(savePath);
 				} 
@@ -121,25 +111,6 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 				}
 				
 				System.out.println("Saved file!");
-=======
-				String fileName = fileOpener.getSelectedFile().getName();
-				// this is the real save path without the fileName.
-				String savePath = fileOpener.getSelectedFile().getPath().replace(fileName, "");
-								
-				if(xmlFormat.isSelected()){
-					if(fileName.endsWith(".xml")){
-						fileName = fileName.replace(".xml", "");
-					}
-					ClassConverter.write(exportData, savePath + fileName);
-				} else if(rdfFormat.isSelected()){
-					if(!fileName.endsWith(".rdf")){
-						fileName += ".rdf";
-					}
-				} else{
-					return;
-				}
-				System.out.println("HERE ME! - "  + fileName + " - " + savePath);
->>>>>>> origin/master
 			} 
 			else 
 			{
@@ -149,7 +120,7 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 		else if (e.getSource() == newScrapButton) 
 		{
 			exportWindow.hideWindow();
-			exportData.clear();
+			scrapedEntries.clear();
 			filePathField.setText("");
 			mainWindow.showWindow();
 		}

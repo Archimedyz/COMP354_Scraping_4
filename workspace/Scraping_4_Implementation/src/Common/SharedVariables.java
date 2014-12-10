@@ -26,12 +26,8 @@ public interface SharedVariables {
 	final String EXPORT_STRING = "Export Data";
 	
 	ArrayList<String> urls = new ArrayList<String>();
-<<<<<<< HEAD
 	ArrayList<ScrapingEntry> scrapedEntries = new ArrayList<ScrapingEntry>();
 	ExportData exporter = new ExportData();
-=======
-	ArrayList<ExportData> exportData = new ArrayList<ExportData>();
->>>>>>> origin/master
 	
 	JButton scrapingButton = new JButton("Start Scraping");
 	JButton newScrapButton = new JButton("   New Scrap  ");

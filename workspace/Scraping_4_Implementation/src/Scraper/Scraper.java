@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Common.SharedVariables;
-import export.ExportData;
+import Export.ExportData;
 
 public class Scraper implements SharedVariables
 {	
@@ -75,7 +75,6 @@ public class Scraper implements SharedVariables
 		    System.out.println("App_similar2: "+App_similar.get(1));
 		    System.out.println("App_similar3: "+App_similar.get(2));
 		    
-<<<<<<< HEAD
 		    ScrapingEntry ent = new ScrapingEntry();
 		    
 		    ent.name = App_name;
@@ -93,26 +92,7 @@ public class Scraper implements SharedVariables
 			ent.similarApps = App_similar;
 			
 			scrapedEntries.add(ent);
-=======
-		    ExportData currUrlData = new ExportData();
-		    
-		    currUrlData.name = App_name;
-			currUrlData.offeredBy = App_company;
-			currUrlData.contentRating = "NA";
-			currUrlData.rating = Float.parseFloat(App_rating);
-			currUrlData.numOfPeopleRated = App_numOfPeopleRated;
-			currUrlData.numOfGoogleUpvotes = 0;
-			currUrlData.category = App_category;
-			currUrlData.dateLastUpdated = App_dateLastUpdated;
-			currUrlData.description = "Too long for some reason";
-			currUrlData.numOfInstalls = App_numOfInstalls;
-			currUrlData.currentVersion = App_currentVersion;
-			currUrlData.size = App_size;
-			currUrlData.similarApps = App_similar;
-			
-			exportData.add(currUrlData);
 		   
->>>>>>> origin/master
 		}
 		catch (Exception e)
 		{ 
