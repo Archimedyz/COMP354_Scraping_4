@@ -1,17 +1,14 @@
 package GUI_Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import export.ClassConverter;
 import Common.SharedVariables;
 import OperationThreads.ScrapingThread;
-import Scraper.Scraper;
 
 /*
  * This class behaves as a GUI Controller in the sense that 
@@ -28,7 +25,7 @@ import Scraper.Scraper;
 
 public class WindowListener implements ActionListener, ChangeListener, SharedVariables 
 {
-	String filePath = "";
+	String filePath = null;
 	
 	@Override
 	public void actionPerformed(ActionEvent e) 
@@ -43,11 +40,18 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 		} 
 		else if (e.getSource() == scrapingButton) // Scraping button was pressed
 		{
+			filePath = filePathField.getText();
+			
+			if(filePath.endsWith(".csv")){
+				
 			mainWindow.hideWindow();
 			scrapingProgressWindow.showWindow();
 			
 			ScrapingThread thread = new ScrapingThread(filePath);
 			thread.start();
+			} else {
+				errorMessage.setText("Invalid File Type. Must be a '.csv' File.");
+			}
 		} 
 		else if (e.getSource() == openFileButton) // Open file button was pressed
 		{
@@ -83,19 +87,23 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 			if (response == JFileChooser.APPROVE_OPTION) 
 			{
 				// This is the filename.
-				saveFileName.setText(fileOpener.getSelectedFile().getName());
-				// This is the path for saving the file including the fileName.
-				saveFilePath.setText(fileOpener.getSelectedFile().getPath());
-				// this is the real save path.
-				String savePath = saveFilePath.getText();
+				String fileName = fileOpener.getSelectedFile().getName();
+				// this is the real save path without the fileName.
+				String savePath = fileOpener.getSelectedFile().getPath().replace(fileName, "");
+								
 				if(xmlFormat.isSelected()){
-					savePath += ".xml";
+					if(fileName.endsWith(".xml")){
+						fileName = fileName.replace(".xml", "");
+					}
+					ClassConverter.write(exportData, savePath + fileName);
 				} else if(rdfFormat.isSelected()){
-					savePath += ".rdf";
+					if(!fileName.endsWith(".rdf")){
+						fileName += ".rdf";
+					}
 				} else{
 					return;
 				}
-				System.out.println("HERE ME!");
+				System.out.println("HERE ME! - "  + fileName + " - " + savePath);
 			} 
 			else 
 			{
@@ -105,6 +113,8 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 		else if (e.getSource() == newScrapButton) 
 		{
 			exportWindow.hideWindow();
+			exportData.clear();
+			filePathField.setText("");
 			mainWindow.showWindow();
 		}
 	}

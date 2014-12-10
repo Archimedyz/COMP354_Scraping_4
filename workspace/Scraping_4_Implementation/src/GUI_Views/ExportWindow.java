@@ -48,13 +48,10 @@ public class ExportWindow extends JFrame implements SharedVariables{
 		buttonPanel.add(helpButton);
 		buttonPanel.add(exitButton);
 		windowLabel.setFont(new Font(windowLabel.getFont().getFontName(), Font.PLAIN, 20));
-		saveFileName.setFont(new Font(windowLabel.getFont().getFontName(), Font.PLAIN, 20));
-		saveFilePath.setFont(new Font(windowLabel.getFont().getFontName(), Font.PLAIN, 20));
 		centerPanel.add(new JLabel("Save Format"));
+		xmlFormat.setSelected(true);
 		centerPanel.add(xmlFormat);
 		centerPanel.add(rdfFormat);
-		centerPanel.add(saveFileName);
-		centerPanel.add(saveFilePath);
 		windowLabel.setFont(new Font(windowLabel.getFont().getFontName(), Font.PLAIN, 20));
 		windowLabel.setText(EXPORT_STRING);
 		mainPanel.add(windowLabel, BorderLayout.NORTH);

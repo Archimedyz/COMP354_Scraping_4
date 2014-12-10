@@ -1,13 +1,10 @@
 package GUI_Views;
 
-import static Common.SharedVariables.windowListener;
-
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import Common.SharedVariables;
 
@@ -22,8 +19,9 @@ public class ScrapingProgressWindow extends JFrame implements SharedVariables{
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+		centerPanel.setLayout(new FlowLayout());
 		scrapingProgressBar.setLocation(10, 10);
-		scrapingProgressBar.setSize(20, 100);
+		scrapingProgressBar.setSize(25, 150);
 		scrapingProgressBar.setStringPainted(true);
 		mainPanel.setLayout(new BorderLayout());
 		centerPanel.add(scrapingProgressBar);
