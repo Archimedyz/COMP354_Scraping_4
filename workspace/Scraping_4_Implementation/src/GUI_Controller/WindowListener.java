@@ -6,7 +6,7 @@ import javax.swing.JFileChooser;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import Common.SharedVariables;
-import Export.ExportData;
+import Export.ClassConverter;
 import OperationThreads.ScrapingThread;
 
 /*
@@ -88,7 +88,8 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 				// this is the real save path.
 				String savePath = fileOpener.getSelectedFile().getPath();
 				
-				ExportData exporter = new ExportData();
+				//ExportData exporter = new ExportData();
+				ClassConverter exporter = new ClassConverter();
 				
 				if(xmlFormat.isSelected())
 				{

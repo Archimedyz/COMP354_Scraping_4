@@ -5,23 +5,68 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import Common.SharedVariables;
+import Scraper.ScrapingEntry;
 
 // external libs
 import com.thoughtworks.xstream.XStream;
 
-public class ClassConverter {
-
-	public static void write(ArrayList<ExportData> xmlDatas, String xmlFileNameWithoutExtension) {
+public class ClassConverter implements SharedVariables
+{
+	public void exportRDF(String path)
+	{
+		String rdf = "<?xml version=\"1.0\"?>\n<RDF>\n";
+		
+		for (int i = 0; i < scrapedEntries.size(); i++)
+		{
+			ScrapingEntry ent = scrapedEntries.get(i);
+			
+			rdf += ("<Description about=\"" + ent.name + "\">\n");
+			rdf += ("<name>" + ent.name + "</name>\n");
+			rdf += ("<author>" + ent.offeredBy + "</author>\n");
+			rdf += ("<rating>" + ent.contentRating + "</rating>\n");
+			rdf += ("<ratings>" + ent.numOfPeopleRated + "</ratings>\n");
+			rdf += ("<upvotes>" + ent.numOfGoogleUpvotes + "</upvotes>\n");
+			rdf += ("<category>" + ent.category + "</category>\n");
+			rdf += ("<date>" + ent.dateLastUpdated + "</date>\n");
+			rdf += ("<description>" + ent.description + "</description>\n");
+			rdf += ("<installs>" + ent.numOfInstalls + "</installs>\n");
+			rdf += ("<version>" + ent.currentVersion + "</version>\n");
+			rdf += ("<size>" + ent.size + "</size>\n");
+			rdf += ("<similar1>" + ent.similarApps.get(0) + "</similar1>\n");
+			rdf += ("<similar2>" + ent.similarApps.get(1) + "</similar2>\n");
+			rdf += ("<similar3>" + ent.similarApps.get(2) + "</similar3>\n");
+			rdf += "</Description>\n";
+		}
+		
+		rdf += "</RDF>";
+		
+		try
+		{
+			PrintWriter out = new PrintWriter(path);
+			out.write(rdf);
+			out.close();
+		}
+		catch (Exception e)
+		{
+			System.out.println("Error: Could not export data as rdf.");
+		}
+	}
+	
+	public static void exportXML(String xmlFileNameWithoutExtension) 
+	{
 		FileWriter encode = null;
 		try {
 			encode = new FileWriter(xmlFileNameWithoutExtension + ".xml");
 			XStream xstream = new XStream();
 			String xml;
 			 
-			for (int i = 0; i < xmlDatas.size(); ++i) {
-				xml = xstream.toXML(xmlDatas.get(i));
+			for (int i = 0; i < scrapedEntries.size(); ++i) {
+				xml = xstream.toXML(scrapedEntries.get(i));
 				encode.write(xml + "\n");
 			}
 			
@@ -32,7 +77,7 @@ public class ClassConverter {
 		}
 	}
 	
-	public static ArrayList<ExportData> read(String xmlFileNameWithoutExtension) {
+	public static ArrayList<ScrapingEntry> readXML(String xmlFileNameWithoutExtension) {
 		Scanner decoder = null;
 		try {
 			decoder = new Scanner(
@@ -46,7 +91,7 @@ public class ClassConverter {
 			return null;
 		}
 		
-		ArrayList<ExportData> xmlDatas = new ArrayList<ExportData>();
+		ArrayList<ScrapingEntry> xmlDatas = new ArrayList<ScrapingEntry>();
 		
 		XStream xstream = new XStream();
 			
@@ -66,7 +111,7 @@ public class ClassConverter {
 			if (tagCounter >= 2) {
 				tagCounter = 0;
 				
-				xmlDatas.add((ExportData)xstream.fromXML(parsedObject));
+				xmlDatas.add((ScrapingEntry)xstream.fromXML(parsedObject));
 				
 				parsedObject = "";
 			}

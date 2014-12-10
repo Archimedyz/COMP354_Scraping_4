@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Common.SharedVariables;
-import Export.ExportData;
 
 public class Scraper implements SharedVariables
 {	
