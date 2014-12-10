@@ -69,20 +69,20 @@ public class Scraper implements SharedVariables
 		    System.out.println("App_similar1: "+App_similar.get(0));
 		    System.out.println("App_similar2: "+App_similar.get(1));
 		    System.out.println("App_similar3: "+App_similar.get(2));
-		
-		    dataMap.put(AppDataType.NAME, App_name);
-		    dataMap.put(AppDataType.COMPANY, App_company);
-		    dataMap.put(AppDataType.RATING, App_rating);
-		    dataMap.put(AppDataType.NUMBER_OF_RATERS, App_numOfPeopleRated);
-		    dataMap.put(AppDataType.CATEGORY, App_category);
-		    dataMap.put(AppDataType.DATE_LAST_UPDATED, App_dateLastUpdated);
-		    dataMap.put(AppDataType.DESCRIPTION, "");
-		    dataMap.put(AppDataType.INSTALLS, App_numOfInstalls);
-		    dataMap.put(AppDataType.CURRENT_VERSION, App_currentVersion);
-		    dataMap.put(AppDataType.SIZE, App_size);
-		    dataMap.put(AppDataType.SIMILARAPP1, App_similar.get(0));
-		    dataMap.put(AppDataType.SIMILARAPP2, App_similar.get(1));
-		    dataMap.put(AppDataType.SIMILARAPP3, App_similar.get(2));
+		    
+		    xmlData.name = App_name;
+			xmlData.offeredBy = App_company;
+			xmlData.contentRating = "NA";
+			xmlData.rating = Float.parseFloat(App_rating);
+			xmlData.numOfPeopleRated = Integer.parseInt(App_numOfPeopleRated);
+			xmlData.numOfGoogleUpvotes = 0;
+			xmlData.category = App_category;
+			xmlData.dateLastUpdated = App_dateLastUpdated;
+			xmlData.description = "Too long for some reason";
+			xmlData.numOfInstalls = Integer.parseInt(App_numOfInstalls);
+			xmlData.currentVersion = App_currentVersion;
+			xmlData.size = Float.parseFloat(App_size);
+			xmlData.similarApps = App_similar;
 		   
 		}
 		catch (Exception e)

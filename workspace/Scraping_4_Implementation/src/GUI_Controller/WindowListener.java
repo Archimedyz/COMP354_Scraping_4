@@ -8,7 +8,7 @@ import javax.swing.event.ChangeListener;
 
 import Common.SharedVariables;
 import OperationThreads.ScrapingThread;
-import Scraper.Parsing;
+import Scraper.Scraper;
 
 /*
  * This class behaves as a GUI Controller in the sense that 

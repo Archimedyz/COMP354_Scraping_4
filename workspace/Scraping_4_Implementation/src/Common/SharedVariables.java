@@ -1,6 +1,4 @@
 package Common;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -11,6 +9,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import export.ExportData;
 import GUI_Controller.WindowListener;
 import GUI_Views.ExportWindow;
 import GUI_Views.HelpWindow;
@@ -18,22 +17,6 @@ import GUI_Views.MainWindow;
 import GUI_Views.ScrapingProgressWindow;
 
 public interface SharedVariables {
-	
-	enum AppDataType {
-		NAME,
-		SIZE,
-		COMPANY,
-		DESCRIPTION,
-		RATING,
-		CATEGORY,
-		NUMBER_OF_RATERS,
-		INSTALLS,
-		DATE_LAST_UPDATED,
-		CURRENT_VERSION,
-		SIMILARAPP1,
-		SIMILARAPP2,
-		SIMILARAPP3
-	}
 
 	final String APP_TITLE = "Scraping Group 4";
 	final String FILE_PATH_STRING = "CSV File Path:";
@@ -42,7 +25,7 @@ public interface SharedVariables {
 	final String EXPORT_STRING = "Export Data";
 
 	ArrayList<String> urls = new ArrayList<String>();
-	Map<AppDataType, String> dataMap = new HashMap<AppDataType, String>();
+	ExportData xmlData = new ExportData();
 	
 	JButton scrapingButton = new JButton("Start Scraping");
 	JButton newScrapButton = new JButton("   New Scrap  ");
