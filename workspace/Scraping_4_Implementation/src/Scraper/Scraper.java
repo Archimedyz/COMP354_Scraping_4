@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Common.SharedVariables;
+import export.ExportData;
 
 public class Scraper implements SharedVariables
 {	
@@ -74,6 +75,7 @@ public class Scraper implements SharedVariables
 		    System.out.println("App_similar2: "+App_similar.get(1));
 		    System.out.println("App_similar3: "+App_similar.get(2));
 		    
+<<<<<<< HEAD
 		    ScrapingEntry ent = new ScrapingEntry();
 		    
 		    ent.name = App_name;
@@ -91,6 +93,26 @@ public class Scraper implements SharedVariables
 			ent.similarApps = App_similar;
 			
 			scrapedEntries.add(ent);
+=======
+		    ExportData currUrlData = new ExportData();
+		    
+		    currUrlData.name = App_name;
+			currUrlData.offeredBy = App_company;
+			currUrlData.contentRating = "NA";
+			currUrlData.rating = Float.parseFloat(App_rating);
+			currUrlData.numOfPeopleRated = App_numOfPeopleRated;
+			currUrlData.numOfGoogleUpvotes = 0;
+			currUrlData.category = App_category;
+			currUrlData.dateLastUpdated = App_dateLastUpdated;
+			currUrlData.description = "Too long for some reason";
+			currUrlData.numOfInstalls = App_numOfInstalls;
+			currUrlData.currentVersion = App_currentVersion;
+			currUrlData.size = App_size;
+			currUrlData.similarApps = App_similar;
+			
+			exportData.add(currUrlData);
+		   
+>>>>>>> origin/master
 		}
 		catch (Exception e)
 		{ 
@@ -118,7 +140,7 @@ public class Scraper implements SharedVariables
             
             in.close();
             
-            String fileName = "temp.txt";
+            String fileName = "res/temp.txt";
             
             System.out.println(fileName);
             
@@ -136,7 +158,7 @@ public class Scraper implements SharedVariables
 		}
 	}
 	
-	public ArrayList<String> GetURLs(String csvFilePath)
+	public ArrayList<String> GetURLs(String csvFilePath) throws FileNotFoundException
 	{
 		if (csvFilePath == null)
 		{
@@ -146,26 +168,17 @@ public class Scraper implements SharedVariables
 		File csvFile = new File(csvFilePath);
 		Scanner reader;
 		
-		try 
+		reader = new Scanner(csvFile);
+		reader.nextLine();
+		
+		while(reader.hasNextLine())
 		{
-			reader = new Scanner(csvFile);
-			reader.nextLine();
-			
-			while(reader.hasNextLine())
-			{
-				String line = reader.nextLine();
-				System.out.println(line.split(";")[0]);
-				urls.add(line.substring(1).split(";")[0]);
-			}
-			
-			reader.close();
-		} 
-		catch (FileNotFoundException e) 
-		{
-			e.printStackTrace();
-			return null;
+			String line = reader.nextLine();
+			System.out.println(line.split(";")[0]);
+			urls.add(line.substring(1).split(";")[0]);
 		}
 		
+		reader.close();		
 		return urls;
 	}
 	

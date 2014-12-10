@@ -1,7 +1,9 @@
 package OperationThreads;
 
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+
 import Common.SharedVariables;
 import Scraper.*;
 
@@ -24,7 +26,16 @@ public class ScrapingThread extends Thread implements SharedVariables
 		scrapingProgressBar.setValue(1);
 		
 		Scraper scraper = new Scraper();
-		ArrayList<String> urls = scraper.GetURLs(csvFilePath);
+		ArrayList<String> urls = null;
+		try {
+			urls = scraper.GetURLs(csvFilePath);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			scrapingProgressWindow.hideWindow();
+			errorMessage.setText("Invalid File Path.");
+			mainWindow.showWindow();
+			return;
+		}
 		
 		if (urls.size() < 1)
 		{

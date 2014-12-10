@@ -24,10 +24,14 @@ public interface SharedVariables {
 	final String GREETING_STRING = "Welcome to the Scraping Tool";
 	final String PROGRESS_STRING = "Scraping In Progress";
 	final String EXPORT_STRING = "Export Data";
-
+	
 	ArrayList<String> urls = new ArrayList<String>();
+<<<<<<< HEAD
 	ArrayList<ScrapingEntry> scrapedEntries = new ArrayList<ScrapingEntry>();
 	ExportData exporter = new ExportData();
+=======
+	ArrayList<ExportData> exportData = new ArrayList<ExportData>();
+>>>>>>> origin/master
 	
 	JButton scrapingButton = new JButton("Start Scraping");
 	JButton newScrapButton = new JButton("   New Scrap  ");
@@ -39,8 +43,7 @@ public interface SharedVariables {
 	JTextField filePathField = new JTextField(25);
 	JLabel filePathLabel = new JLabel(FILE_PATH_STRING);
 	JLabel windowLabel = new JLabel();
-	JLabel saveFileName = new JLabel();
-	JLabel saveFilePath = new JLabel();
+	JLabel errorMessage = new JLabel();
 	JPanel mainPanel = new JPanel();
 	JPanel buttonPanel = new JPanel();
 	JPanel centerPanel = new JPanel();

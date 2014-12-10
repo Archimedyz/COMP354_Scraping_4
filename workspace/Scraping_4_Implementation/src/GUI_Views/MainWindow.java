@@ -2,10 +2,11 @@ package GUI_Views;
 import static Common.SharedVariables.windowListener;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import Common.SharedVariables;
 
@@ -28,8 +29,9 @@ public class MainWindow extends JFrame implements SharedVariables{
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+		errorMessage.setForeground(Color.RED);
 		mainPanel.setLayout(new BorderLayout());
-		centerPanel.setLayout(new FlowLayout());
+		centerPanel.setLayout(new BorderLayout());
 		if(openFileButton.getActionListeners().length == 0){			
 			openFileButton.addActionListener(windowListener);
 		}
@@ -46,8 +48,13 @@ public class MainWindow extends JFrame implements SharedVariables{
 		buttonPanel.add(scrapingButton);
 		buttonPanel.add(helpButton);
 		buttonPanel.add(exitButton);
-		centerPanel.add(filePathLabel);
-		centerPanel.add(filePathField);
+		JPanel errorPanel = new JPanel();
+		errorPanel.add(errorMessage);
+		centerPanel.add(errorPanel, BorderLayout.CENTER);
+		JPanel tempPanel = new JPanel();
+		tempPanel.add(filePathLabel, BorderLayout.SOUTH);
+		tempPanel.add(filePathField, BorderLayout.SOUTH);
+		centerPanel.add(tempPanel, BorderLayout.SOUTH);
 		windowLabel.setFont(new Font(windowLabel.getFont().getFontName(), Font.PLAIN, 20));
 		windowLabel.setText(GREETING_STRING);
 		mainPanel.add(windowLabel, BorderLayout.NORTH);
@@ -63,7 +70,7 @@ public class MainWindow extends JFrame implements SharedVariables{
 	}
 	
 	public void hideWindow(){
-	//	this.removeAll();
+		errorMessage.setText("");
 		mainPanel.removeAll();
 		centerPanel.removeAll();
 		buttonPanel.removeAll();
