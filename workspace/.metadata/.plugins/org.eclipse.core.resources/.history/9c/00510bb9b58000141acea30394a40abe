@@ -77,17 +77,17 @@ public class ClassConverter implements SharedVariables
 		}
 	}
 	
-	public static ArrayList<ScrapingEntry> readXML(String xmlFileName) {
+	public static ArrayList<ScrapingEntry> readXML(String xmlFileNameWithoutExtension) {
 		Scanner decoder = null;
 		try {
 			decoder = new Scanner(
 					new BufferedReader(
-							new FileReader(xmlFileName)
+							new FileReader(xmlFileNameWithoutExtension + ".xml")
 							)
 					);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("ERROR: Could not read " + xmlFileName + ", so exiting!");
+			System.out.println("ERROR: Could not read " + xmlFileNameWithoutExtension + ".xml, so exiting!");
 			return null;
 		}
 		

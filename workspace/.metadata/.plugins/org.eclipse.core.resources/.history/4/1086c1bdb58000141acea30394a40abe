@@ -87,7 +87,7 @@ public class ClassConverter implements SharedVariables
 					);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("ERROR: Could not read " + xmlFileName + ", so exiting!");
+			System.out.println("ERROR: Could not read " + xmlFileNameWithoutExtension + ".xml, so exiting!");
 			return null;
 		}
 		
