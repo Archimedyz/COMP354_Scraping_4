@@ -36,7 +36,7 @@ public class WindowListener implements ActionListener, ChangeListener, SharedVar
 			 */
 			mainWindow.hideWindow();
 			scrapingProgressWindow.showWindow();
-			new ScrapingThread().start();	
+			new ScrapingThread(null).start();	
 		} else if (e.getSource() == openFileButton) {
 			System.out.println("Open FIle");
 			int response;

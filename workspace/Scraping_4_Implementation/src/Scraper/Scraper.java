@@ -1,7 +1,11 @@
 package Scraper;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -74,14 +78,14 @@ public class Scraper implements SharedVariables
 			xmlData.offeredBy = App_company;
 			xmlData.contentRating = "NA";
 			xmlData.rating = Float.parseFloat(App_rating);
-			xmlData.numOfPeopleRated = Integer.parseInt(App_numOfPeopleRated);
+			xmlData.numOfPeopleRated = App_numOfPeopleRated;
 			xmlData.numOfGoogleUpvotes = 0;
 			xmlData.category = App_category;
 			xmlData.dateLastUpdated = App_dateLastUpdated;
 			xmlData.description = "Too long for some reason";
-			xmlData.numOfInstalls = Integer.parseInt(App_numOfInstalls);
+			xmlData.numOfInstalls = App_numOfInstalls;
 			xmlData.currentVersion = App_currentVersion;
-			xmlData.size = Float.parseFloat(App_size);
+			xmlData.size = App_size;
 			xmlData.similarApps = App_similar;
 		   
 		}
@@ -100,7 +104,6 @@ public class Scraper implements SharedVariables
 		    URL web = new URL(url);
             BufferedReader in = new BufferedReader(new InputStreamReader(web.openStream()));
             String inputLine;
-            String name[] = url.split("\\.");
             
             System.out.println("Scraping started on '" + url + "'."); 
             
@@ -111,7 +114,9 @@ public class Scraper implements SharedVariables
             
             in.close();
             
-            String fileName = name[4] + ".txt";
+            String fileName = "temp.txt";
+            
+            System.out.println(fileName);
             
             PrintWriter out = new PrintWriter(fileName);
             out.write(scrapingData);
@@ -127,8 +132,25 @@ public class Scraper implements SharedVariables
 		}
 	}
 	
-	public ArrayList<String> GetURLs()
+	public ArrayList<String> GetURLs(String csvFilePath)
 	{
+		if(csvFilePath == null){
+			csvFilePath = "res/sample.csv";
+		}
+		File csvFile = new File(csvFilePath);
+		Scanner reader;
+		try {
+			reader = new Scanner(csvFile);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+		reader.nextLine();
+		while(reader.hasNextLine()){
+			String line = reader.nextLine();
+			System.out.println(line.split(";")[0]);
+			urls.add(line.substring(1).split(";")[0]);
+		}
 		return urls;
 	}
 	

@@ -7,14 +7,14 @@ public class ExportData {
 	public String offeredBy;
 	public String contentRating;
 	public float rating;
-	public int numOfPeopleRated;
+	public String numOfPeopleRated;
 	public int numOfGoogleUpvotes;
 	public String category;
 	public String dateLastUpdated;
 	public String description;
-	public int numOfInstalls;
+	public String numOfInstalls;
 	public String currentVersion;
-	public float size;
+	public String size;
 	public ArrayList<String> similarApps;
 
 	@Override public String toString() {
