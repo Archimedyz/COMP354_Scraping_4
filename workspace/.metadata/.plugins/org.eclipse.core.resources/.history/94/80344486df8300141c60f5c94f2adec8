@@ -139,7 +139,6 @@ public class Scraper implements SharedVariables
 	
 	public ArrayList<String> GetURLs(String csvFilePath) throws FileNotFoundException
 	{
-		urls.clear();
 		if (csvFilePath == null)
 		{
 			csvFilePath = "res/sample.csv";

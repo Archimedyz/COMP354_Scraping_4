@@ -23,7 +23,6 @@ public class ScrapingThread extends Thread implements SharedVariables
 	@Override
 	public void run()
 	{
-		long currTime = System.currentTimeMillis();
 		scrapingProgressBar.setValue(1);
 		
 		Scraper scraper = new Scraper();
@@ -55,8 +54,7 @@ public class ScrapingThread extends Thread implements SharedVariables
 			
 			scrapingProgressBar.setValue(progress);
 		}
-		System.out.println("Time taken: " + (System.currentTimeMillis() - currTime));
+	
 		doneScrap.doClick();
-		
 	}
 }
